@@ -61,7 +61,7 @@ export function BuiltForCreatives() {
           {audiences.map((audience, index) => (
             <span
               key={`${audience.label}-${index}`}
-              className="rounded-full bg-brand-mint px-6 py-2 text-xl font-bold text-brand-dark transition-transform duration-300 ease-out sm:rotate-[var(--r)] sm:translate-x-[var(--x)] sm:translate-y-[var(--y)] sm:text-[25px] sm:hover:rotate-0 sm:hover:translate-x-0 sm:hover:translate-y-0"
+              className="select-none rounded-full bg-brand-mint px-6 py-2 text-xl font-bold text-brand-dark transition-transform duration-300 ease-out sm:rotate-[var(--r)] sm:translate-x-[var(--x)] sm:translate-y-[var(--y)] sm:text-[25px] sm:hover:rotate-0 sm:hover:translate-x-0 sm:hover:translate-y-0"
               style={
                 {
                   "--r": `${audience.rotate}deg`,
