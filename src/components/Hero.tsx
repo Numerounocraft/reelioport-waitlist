@@ -21,7 +21,9 @@ export function Hero() {
             <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-start lg:justify-between">
               <div className="flex max-w-md flex-col gap-4">
                 <h1 className="font-display text-3xl leading-9 text-brand-mint sm:text-4xl sm:leading-10">
-                  One link. Every project. Every opportunity.
+                  One link. Every project.
+                  <br />
+                  Every opportunity.
                 </h1>
                 <p className="max-w-sm text-lg leading-[22px] tracking-[0.03em] text-brand-mint">
                   ReelioPort is the professional video portfolio platform
@@ -32,7 +34,7 @@ export function Hero() {
               {/* Reserved for a phone mockup of the product (to be added) */}
               <div className="hidden shrink-0 lg:block lg:w-[300px]" aria-hidden="true" />
 
-              <p className="max-w-xs font-display text-[32px] leading-10 text-brand-mint sm:text-[40px] sm:leading-[48px] lg:text-right lg:text-[46px] lg:leading-[56px]">
+              <p className="max-w-xs text-center font-display text-[32px] leading-10 text-brand-mint sm:text-[40px] sm:leading-[48px] lg:text-[46px] lg:leading-[56px]">
                 YOUR WORK DESERVES A BETTER HOME.
               </p>
             </div>
