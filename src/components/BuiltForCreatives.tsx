@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import SphereImageGrid, { type ImageData } from "@/components/ui/img-sphere";
 
 const CREATIVE_PHOTO_IDS = [
@@ -28,31 +29,17 @@ const CREATIVE_PHOTOS: ImageData[] = CREATIVE_PHOTO_IDS.map((id, index) => ({
 }));
 
 const audiences = [
-  "VIDEOGRAPHERS",
-  "3D ARTIST",
-  "STUDENTS",
-  "CONTENT CREATORS",
-  "VIDEO-EDITORS",
-  "MOTION DESIGNERS",
-  "FILMMAKERS",
-  "FREELANCERS",
-  "ANIMATORS",
-  "FREELANCERS",
-  "CREATIVE AGENCY",
-];
-
-const offsets = [
-  "sm:mt-2",
-  "sm:mt-0",
-  "sm:mt-6",
-  "sm:mt-8",
-  "sm:mt-3",
-  "sm:mt-9",
-  "sm:mt-14",
-  "sm:mt-16",
-  "sm:mt-20",
-  "sm:mt-2",
-  "sm:-mt-2",
+  { label: "VIDEOGRAPHERS", rotate: -3, x: -4, y: 5 },
+  { label: "3D ARTIST", rotate: 2, x: 3, y: -7 },
+  { label: "STUDENTS", rotate: -2, x: -5, y: 3 },
+  { label: "CONTENT CREATORS", rotate: 3, x: 4, y: -4 },
+  { label: "VIDEO-EDITORS", rotate: -3, x: -3, y: 6 },
+  { label: "MOTION DESIGNERS", rotate: 2, x: 4, y: -3 },
+  { label: "FILMMAKERS", rotate: -2, x: -4, y: 4 },
+  { label: "FREELANCERS", rotate: 3, x: 3, y: -6 },
+  { label: "ANIMATORS", rotate: -2, x: -3, y: 2 },
+  { label: "FREELANCERS", rotate: 2, x: 4, y: -3 },
+  { label: "CREATIVE AGENCY", rotate: -3, x: -3, y: 5 },
 ];
 
 export function BuiltForCreatives() {
@@ -70,13 +57,20 @@ export function BuiltForCreatives() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-9">
           {audiences.map((audience, index) => (
             <span
-              key={`${audience}-${index}`}
-              className={`rounded-full bg-brand-mint px-6 py-2 text-xl font-bold text-brand-dark sm:text-[25px] ${offsets[index]}`}
+              key={`${audience.label}-${index}`}
+              className="rounded-full bg-brand-mint px-6 py-2 text-xl font-bold text-brand-dark transition-transform duration-300 ease-out sm:rotate-[var(--r)] sm:translate-x-[var(--x)] sm:translate-y-[var(--y)] sm:text-[25px] sm:hover:rotate-0 sm:hover:translate-x-0 sm:hover:translate-y-0"
+              style={
+                {
+                  "--r": `${audience.rotate}deg`,
+                  "--x": `${audience.x}px`,
+                  "--y": `${audience.y}px`,
+                } as CSSProperties
+              }
             >
-              {audience}
+              {audience.label}
             </span>
           ))}
         </div>
