@@ -1,6 +1,8 @@
 import { Hero } from "@/components/Hero";
 import { WhyJoinWaitlist } from "@/components/WhyJoinWaitlist";
 import { BuiltForCreatives } from "@/components/BuiltForCreatives";
+import { TestimonialQuote } from "@/components/TestimonialQuote";
+import { FinalCta } from "@/components/FinalCta";
 
 export default function Home() {
   return (
@@ -8,7 +10,8 @@ export default function Home() {
       <Hero />
       <WhyJoinWaitlist />
       <BuiltForCreatives />
-      {/* Testimonial/quote banner and final CTA go here — built next, with scroll text effects */}
+      <TestimonialQuote />
+      <FinalCta />
     </main>
   );
 }
