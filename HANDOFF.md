@@ -1,6 +1,6 @@
 # ReelioPort Waitlist — Handoff
 
-Last updated: 2026-08-11
+Last updated: 2026-08-11 (later session, post-icons/sphere/tag-cloud work)
 
 ## What this is
 
@@ -29,17 +29,17 @@ re-fetch `get_basic_info` → `get_tree_summary` → `get_jsx` /
 
 | Section | Component | Status |
 |---|---|---|
-| Nav + Hero | `src/components/Hero.tsx` | ✅ Refined to exact spec (flush top, fixed nav, correct padding/type sizes) |
-| Why Join the Waitlist | `src/components/WhyJoinWaitlist.tsx` | ⏳ First-draft only — needs the same detail pass as Hero |
-| Built for Creatives | `src/components/BuiltForCreatives.tsx` | ⏳ First-draft only |
+| Nav + Hero | `src/components/Hero.tsx` | ✅ Refined to exact spec (flush top, fixed nav, correct padding/type sizes); headline line-break and work-statement centering adjusted since |
+| Why Join the Waitlist | `src/components/WhyJoinWaitlist.tsx` | ✅ Detail pass done — each card has a hover-animated Motion icon (gift, rocket, alarm-clock-check) in a mint circle |
+| Built for Creatives | `src/components/BuiltForCreatives.tsx` | ✅ Detail pass done — draggable/auto-rotating 3D photo sphere (`src/components/ui/img-sphere.tsx`); audience tag cloud scattered with per-pill deterministic rotate/translate (desktop only, hover settles flat) instead of a tidy grid; tags are `select-none` |
 | Testimonial banner + quote ("Footer" in Paper) | `src/components/TestimonialQuote.tsx` | ⏳ First-draft only |
 | Final CTA | `src/components/FinalCta.tsx` | ⏳ First-draft only |
 | Shared scroll-reveal helper | `src/components/ScrollReveal.tsx` | ✅ Working (see gotcha below) |
 
-**Next step**: pick one of the ⏳ sections and re-pull it fresh from Paper,
-checking padding/corner-rounding/font-size/positioning against the actual
-JSX export rather than eyeballing a screenshot — that's what was missed on
-Hero the first time.
+**Next step**: pick one of the ⏳ sections (TestimonialQuote or FinalCta)
+and re-pull it fresh from Paper, checking padding/corner-rounding/font-size/
+positioning against the actual JSX export rather than eyeballing a
+screenshot — that's what was missed on Hero the first time.
 
 ## Known issues / things to remember
 
@@ -66,9 +66,14 @@ Hero the first time.
 
 ## Git
 
-Five commits so far, most recent first:
+Most recent first:
 
 ```
+9b7d0fb Prevent text selection on Built for Creatives tag pills
+1807984 Scatter the Built for Creatives tag cloud for an organic look
+da1a967 Add animated hover icons and a 3D photo sphere for Built for Creatives
+644fc58 Adjust Hero headline line break and align work statement to center
+cd8e2f3 Add handoff doc for section-by-section refinement workflow
 31a9b17 Refine hero section to match Paper spec exactly
 ba4c5ba Build testimonial/quote banner and final CTA with scroll reveal
 87500ae Build hero, why-join, and built-for-creatives sections
