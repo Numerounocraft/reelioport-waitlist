@@ -1,33 +1,27 @@
 import type { CSSProperties } from "react";
-import { type ImageData } from "@/components/ui/img-sphere";
-import { ResponsiveImgSphere } from "@/components/ui/responsive-img-sphere";
+import {
+  type ImageItem,
+  PhoneCarousel,
+} from "@/components/ui/phone-mockups-1-utils/phone-carousel";
 
-const CREATIVE_PHOTOS_RAW = [
-  { id: "1663047699138-3f18f53aa36f", premium: true, alt: "Video editor reviewing footage on a multi-monitor timeline" },
-  { id: "1663039900507-b428a0be2924", premium: true, alt: "Colorist grading footage on a wide monitor" },
-  { id: "1618329027137-a520b57c6606", premium: false, alt: "Video editor working in Premiere Pro at night" },
-  { id: "1682141028605-b2456e2bab14", premium: true, alt: "Editor's hand on a keyboard in front of a color-grading timeline" },
-  { id: "1682146717223-874ac7dcc607", premium: true, alt: "Camera operator filming a commercial shoot with a monitor rig" },
-  { id: "1682146720153-4d5bdf56f143", premium: true, alt: "Videographer directing a commercial shoot in studio" },
-  { id: "1682146739433-5926577acb7a", premium: true, alt: "Cinematographer holding a steadicam rig under studio lighting" },
-  { id: "1682130336901-10452a5dd5f4", premium: true, alt: "Content creator recording a video in a home studio" },
-  { id: "1695408246612-584543865997", premium: false, alt: "Videographer filming a lifestyle scene in a kitchen" },
-  { id: "1673767297353-0a4c8ad61b05", premium: false, alt: "Creator holding a clapperboard on set" },
-  { id: "1663957821802-4969fe6a0347", premium: true, alt: "Photographer shooting in a studio with softbox lighting" },
-  { id: "1758613868506-9c860063a527", premium: true, alt: "Photographer reviewing shots on a laptop beside studio lights" },
-  { id: "1661281412140-dfb328ae967b", premium: true, alt: "Freelance designer selecting color palettes at a desk" },
-  { id: "1661679584923-e6f62b0a9834", premium: true, alt: "Sound engineer mixing a track in a recording studio" },
-  { id: "1599252441131-5aafffcf7740", premium: false, alt: "Animator sketching on a drawing tablet" },
-  { id: "1663040316559-8684ca45d7e9", premium: true, alt: "Two editors collaborating on a video timeline" },
+const PORTFOLIO_REEL_IMAGES: ImageItem[] = [
+  {
+    src: "https://plus.unsplash.com/premium_photo-1683147724451-33fe3f2ad914?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=600",
+    alt: "Fashion editorial reel on ReelioPort",
+  },
+  {
+    src: "https://plus.unsplash.com/premium_photo-1693330138904-125cce9af9a5?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=600",
+    alt: "Culinary content reel on ReelioPort",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1770413691288-c1ce7629fa28?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=600",
+    alt: "Street performance reel on ReelioPort",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1764440093608-b392dab0dac6?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=600",
+    alt: "Motion graphics reel on ReelioPort",
+  },
 ];
-
-const CREATIVE_PHOTOS: ImageData[] = CREATIVE_PHOTOS_RAW.map((photo, index) => ({
-  id: `creative-${index}`,
-  src: `https://${photo.premium ? "plus" : "images"}.unsplash.com/${photo.premium ? "premium_photo" : "photo"}-${photo.id}?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400`,
-  alt: photo.alt,
-  title: "Made with ReelioPort",
-  description: "Every creative deserves a professional home for their work.",
-}));
 
 const audiences = [
   { label: "VIDEOGRAPHERS", rotate: -3, x: -4, y: 5 },
@@ -80,7 +74,7 @@ export function BuiltForCreatives() {
           WHATEVER YOU CREATE, GIVE YOUR VIDEO WORK A PROFESSIONAL HOME.
         </h2>
 
-        <ResponsiveImgSphere images={CREATIVE_PHOTOS} />
+        <PhoneCarousel images={PORTFOLIO_REEL_IMAGES} controlsVariant="light" />
       </div>
     </section>
   );

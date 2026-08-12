@@ -16,12 +16,14 @@ export interface PhoneCarouselProps {
   images: ImageItem[];
   className?: string;
   autoPlayInterval?: number;
+  controlsVariant?: "light" | "dark";
 }
 
 export function PhoneCarousel({
   images,
   className,
   autoPlayInterval = 3200,
+  controlsVariant = "dark",
 }: PhoneCarouselProps) {
   const [index, setIndex] = React.useState(0);
   const [isHovered, setIsHovered] = React.useState(false);
@@ -94,7 +96,12 @@ export function PhoneCarousel({
             type="button"
             variant="secondary"
             size="icon"
-            className="h-8 w-8 rounded-full bg-white/10 text-white hover:bg-white/20"
+            className={cn(
+              "h-8 w-8 rounded-full",
+              controlsVariant === "dark"
+                ? "bg-white/10 text-white hover:bg-white/20"
+                : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200",
+            )}
             onClick={() => goTo(index - 1)}
             aria-label="Previous screen"
           >
@@ -109,7 +116,13 @@ export function PhoneCarousel({
                 aria-label={`Show screen ${i + 1}`}
                 className={cn(
                   "h-1.5 rounded-full transition-all",
-                  i === index ? "w-4 bg-white" : "w-1.5 bg-white/40",
+                  controlsVariant === "dark"
+                    ? i === index
+                      ? "w-4 bg-white"
+                      : "w-1.5 bg-white/40"
+                    : i === index
+                      ? "w-4 bg-neutral-900"
+                      : "w-1.5 bg-neutral-300",
                 )}
               />
             ))}
@@ -118,7 +131,12 @@ export function PhoneCarousel({
             type="button"
             variant="secondary"
             size="icon"
-            className="h-8 w-8 rounded-full bg-white/10 text-white hover:bg-white/20"
+            className={cn(
+              "h-8 w-8 rounded-full",
+              controlsVariant === "dark"
+                ? "bg-white/10 text-white hover:bg-white/20"
+                : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200",
+            )}
             onClick={() => goTo(index + 1)}
             aria-label="Next screen"
           >
