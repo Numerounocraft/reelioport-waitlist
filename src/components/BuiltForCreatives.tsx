@@ -1,29 +1,30 @@
 import type { CSSProperties } from "react";
-import SphereImageGrid, { type ImageData } from "@/components/ui/img-sphere";
+import { type ImageData } from "@/components/ui/img-sphere";
+import { ResponsiveImgSphere } from "@/components/ui/responsive-img-sphere";
 
-const CREATIVE_PHOTO_IDS = [
-  "1492691527719-9d1e07e534b4",
-  "1500462918059-b1a0cb512f1d",
-  "1440404653325-ab127d49abc1",
-  "1550684848-fac1c5b4e853",
-  "1478720568477-152d9b164e26",
-  "1517841905240-472988babdf9",
-  "1585829365295-ab7cd400c167",
-  "1524678606370-a47ad25cb82a",
-  "1552168324-d612d77725e3",
-  "1601506521793-dc748fc80b67",
-  "1520333789090-1afc82db536a",
-  "1560264280-88b68371db39",
-  "1499750310107-5fef28a66643",
-  "1554080353-a576cf803bda",
-  "1573164713988-8665fc963095",
-  "1478737270239-2f02b77fc618",
+const CREATIVE_PHOTOS_RAW = [
+  { id: "1663047699138-3f18f53aa36f", premium: true, alt: "Video editor reviewing footage on a multi-monitor timeline" },
+  { id: "1663039900507-b428a0be2924", premium: true, alt: "Colorist grading footage on a wide monitor" },
+  { id: "1618329027137-a520b57c6606", premium: false, alt: "Video editor working in Premiere Pro at night" },
+  { id: "1682141028605-b2456e2bab14", premium: true, alt: "Editor's hand on a keyboard in front of a color-grading timeline" },
+  { id: "1682146717223-874ac7dcc607", premium: true, alt: "Camera operator filming a commercial shoot with a monitor rig" },
+  { id: "1682146720153-4d5bdf56f143", premium: true, alt: "Videographer directing a commercial shoot in studio" },
+  { id: "1682146739433-5926577acb7a", premium: true, alt: "Cinematographer holding a steadicam rig under studio lighting" },
+  { id: "1682130336901-10452a5dd5f4", premium: true, alt: "Content creator recording a video in a home studio" },
+  { id: "1695408246612-584543865997", premium: false, alt: "Videographer filming a lifestyle scene in a kitchen" },
+  { id: "1673767297353-0a4c8ad61b05", premium: false, alt: "Creator holding a clapperboard on set" },
+  { id: "1663957821802-4969fe6a0347", premium: true, alt: "Photographer shooting in a studio with softbox lighting" },
+  { id: "1758613868506-9c860063a527", premium: true, alt: "Photographer reviewing shots on a laptop beside studio lights" },
+  { id: "1661281412140-dfb328ae967b", premium: true, alt: "Freelance designer selecting color palettes at a desk" },
+  { id: "1661679584923-e6f62b0a9834", premium: true, alt: "Sound engineer mixing a track in a recording studio" },
+  { id: "1599252441131-5aafffcf7740", premium: false, alt: "Animator sketching on a drawing tablet" },
+  { id: "1663040316559-8684ca45d7e9", premium: true, alt: "Two editors collaborating on a video timeline" },
 ];
 
-const CREATIVE_PHOTOS: ImageData[] = CREATIVE_PHOTO_IDS.map((id, index) => ({
+const CREATIVE_PHOTOS: ImageData[] = CREATIVE_PHOTOS_RAW.map((photo, index) => ({
   id: `creative-${index}`,
-  src: `https://images.unsplash.com/photo-${id}?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400`,
-  alt: `Creative work sample ${index + 1}`,
+  src: `https://${photo.premium ? "plus" : "images"}.unsplash.com/${photo.premium ? "premium_photo" : "photo"}-${photo.id}?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=400`,
+  alt: photo.alt,
   title: "Made with ReelioPort",
   description: "Every creative deserves a professional home for their work.",
 }));
@@ -79,15 +80,7 @@ export function BuiltForCreatives() {
           WHATEVER YOU CREATE, GIVE YOUR VIDEO WORK A PROFESSIONAL HOME.
         </h2>
 
-        <SphereImageGrid
-          images={CREATIVE_PHOTOS}
-          containerSize={380}
-          sphereRadius={150}
-          dragSensitivity={0.6}
-          baseImageScale={0.16}
-          autoRotate
-          autoRotateSpeed={0.15}
-        />
+        <ResponsiveImgSphere images={CREATIVE_PHOTOS} />
       </div>
     </section>
   );

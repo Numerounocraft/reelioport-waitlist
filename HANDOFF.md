@@ -1,6 +1,6 @@
 # ReelioPort Waitlist — Handoff
 
-Last updated: 2026-08-11 (later session, post-icons/sphere/tag-cloud work)
+Last updated: 2026-08-12 (enlarged the Built for Creatives photo sphere and swapped in real creative-work photos, made its size responsive)
 
 ## What this is
 
@@ -31,35 +31,38 @@ re-fetch `get_basic_info` → `get_tree_summary` → `get_jsx` /
 |---|---|---|
 | Nav + Hero | `src/components/Hero.tsx` | ✅ Refined to exact spec (flush top, fixed nav, correct padding/type sizes); headline line-break and work-statement centering adjusted since |
 | Why Join the Waitlist | `src/components/WhyJoinWaitlist.tsx` | ✅ Detail pass done — each card has a hover-animated Motion icon (gift, rocket, alarm-clock-check) in a mint circle |
-| Built for Creatives | `src/components/BuiltForCreatives.tsx` | ✅ Detail pass done — draggable/auto-rotating 3D photo sphere (`src/components/ui/img-sphere.tsx`); audience tag cloud scattered with per-pill deterministic rotate/translate (desktop only, hover settles flat) instead of a tidy grid; tags are `select-none` |
-| Testimonial banner + quote ("Footer" in Paper) | `src/components/TestimonialQuote.tsx` | ⏳ First-draft only |
-| Final CTA | `src/components/FinalCta.tsx` | ⏳ First-draft only |
-| Shared scroll-reveal helper | `src/components/ScrollReveal.tsx` | ✅ Working (see gotcha below) |
+| Built for Creatives | `src/components/BuiltForCreatives.tsx` | ✅ Detail pass done — draggable/auto-rotating 3D photo sphere (`src/components/ui/img-sphere.tsx`), sized responsively via `src/components/ui/responsive-img-sphere.tsx` (300px mobile / 440px tablet / 560px desktop container, up from a fixed 380px); populated with 16 verified Unsplash photos of creatives actually at work (editors, videographers, photographers, a colorist, a sound engineer, an animator) instead of generic/abstract stock photos; audience tag cloud scattered with per-pill deterministic rotate/translate (desktop only, hover settles flat) instead of a tidy grid; tags are `select-none` |
+| Testimonial banner ("Footer" in Paper) | `src/components/TestimonialQuote.tsx` | ✅ Refined to exact spec (2026-08-12) — rebuilt as a single dark card (street photo + headline + form) matching Paper's current `Footer` frame exactly; no longer has a second scroll-pinned quote block |
 
-**Next step**: pick one of the ⏳ sections (TestimonialQuote or FinalCta)
-and re-pull it fresh from Paper, checking padding/corner-rounding/font-size/
-positioning against the actual JSX export rather than eyeballing a
-screenshot — that's what was missed on Hero the first time.
+**Next step**: page now renders all four sections that exist in the current
+Paper file — Hero, Why Join the Waitlist, Built for Creatives, and the
+Footer testimonial card — in that order, all at full refinement.
+`FinalCta.tsx` and `ScrollReveal.tsx` were **deleted** (2026-08-12): the
+Paper file's "Waitlst Landing Page" artboard now only has 4 child frames
+(`Hero`, `Why Join?`, `Built for Creatives`, `Footer`) — there's no
+separate final-CTA frame anymore, and nothing else used the
+`ScrollPin`/`RevealWords` helpers once `TestimonialQuote` stopped needing
+them. If a final CTA ever comes back to the Paper file, note the old bug:
+a `ScrollPin` with `heightVh={200}` as the very last element on the page
+scrolled its pinned headline out of the viewport before the true bottom of
+the page (confirmed via DOM: text opacity reached 1 but
+`getBoundingClientRect().top` was ~-340px at max scroll) — would need a
+smaller `heightVh` or a trailing spacer.
 
 ## Known issues / things to remember
 
-- **Motion's `useScroll` doesn't fire updates in this project.** Reproduced
-  with React strict mode on and off, Motion 13.1.0 + Next.js 16.3.0 +
-  Turbopack — `scrollYProgress` gets stuck at its initial value. Worked
-  around in `ScrollReveal.tsx`'s `ScrollPin` with a manual rAF-throttled
-  `scroll`/`resize` listener driving a `useMotionValue` instead. If you
-  revisit scroll effects, re-test whether a newer Motion version fixes the
-  root cause before assuming the manual listener is still needed.
-- **Possible duplicate headline, unresolved**: "YOUR VIDEO PORTFOLIO SHOULD
-  DO MORE THAN EXIST." appears twice in Paper — once in the testimonial
-  banner (subline "Don't wait until you need a portfolio to build one.")
-  and again as the standalone final CTA (subline "It should make people
-  stop."). Built both as-is since it could be intentional repeat-for-
-  emphasis copy, but worth confirming with the design before shipping.
-- **No backend wiring yet.** Three email-capture forms on the page (hero,
-  testimonial banner, and implicitly the CTA) have no submit handler or API
-  route. Needs a real integration (email service / DB) when ready — not a
-  mock.
+- **Motion's `useScroll` gotcha is no longer relevant.** It never fired
+  update events in this project (reproduced with React strict mode on and
+  off, Motion 13.1.0 + Next.js 16.3.0 + Turbopack — `scrollYProgress` got
+  stuck at its initial value), but the only two components that used the
+  `ScrollReveal.tsx` workaround (`TestimonialQuote`'s old scroll-pinned
+  quote block and `FinalCta`) have both been removed/rebuilt, so
+  `ScrollReveal.tsx` was deleted 2026-08-12. If a future section wants a
+  pinned/scrubbed scroll effect, re-test whether a newer Motion version
+  fixes `useScroll` before reaching for a manual rAF listener again.
+- **No backend wiring yet.** Two email-capture forms on the page (hero and
+  the Footer testimonial card) have no submit handler or API route. Needs a
+  real integration (email service / DB) when ready — not a mock.
 - **Phone mockup placeholder**: Hero reserves an empty spacer
   (`aria-hidden` div, `lg:w-[300px]`) in its middle column for a phone
   mockup image the user will provide later.
