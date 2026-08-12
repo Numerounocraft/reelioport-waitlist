@@ -1,3 +1,5 @@
+import PhoneMockupBasic from "@/components/ui/phone-mockups-1";
+
 export function Hero() {
   return (
     <>
@@ -18,7 +20,7 @@ export function Hero() {
       <section className="bg-white">
         <div className="mx-auto max-w-[1440px] px-5 sm:px-10 lg:px-16">
           <div className="relative overflow-hidden rounded-t-none rounded-b-[32px] bg-brand-dark px-5 pt-24 pb-14 sm:px-10 sm:pt-28 sm:pb-20 lg:pt-[168px]">
-            <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex max-w-md flex-col gap-4">
                 <h1 className="font-display text-3xl leading-9 text-brand-mint sm:text-4xl sm:leading-10">
                   One link. Every project.
@@ -31,8 +33,9 @@ export function Hero() {
                 </p>
               </div>
 
-              {/* Reserved for a phone mockup of the product (to be added) */}
-              <div className="hidden shrink-0 lg:block lg:w-[300px]" aria-hidden="true" />
+              <div className="hidden shrink-0 lg:-my-16 lg:block">
+                <PhoneMockupBasic />
+              </div>
 
               <p className="max-w-xs text-center font-display text-[32px] leading-10 text-brand-mint sm:text-[40px] sm:leading-[48px] lg:text-[46px] lg:leading-[56px]">
                 YOUR WORK DESERVES A BETTER HOME.

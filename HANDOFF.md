@@ -1,6 +1,6 @@
 # ReelioPort Waitlist — Handoff
 
-Last updated: 2026-08-12 (enlarged the Built for Creatives photo sphere and swapped in real creative-work photos, made its size responsive)
+Last updated: 2026-08-12 (added an interactive phone mockup carousel to the Hero, filling the reserved middle spacer; set up shadcn/ui conventions in the repo)
 
 ## What this is
 
@@ -8,11 +8,17 @@ A waitlist landing page for **ReelioPort**, a video portfolio platform for
 creatives. Design lives in Paper (file "Graceful orchard",
 fileId `01KZPBXW83X1MBH102GWE0GMNS`); this repo is the Next.js build of it.
 
-- **Stack**: Next.js 16 (App Router), TypeScript, Tailwind CSS v4, ESLint.
+- **Stack**: Next.js 16 (App Router), TypeScript, Tailwind CSS v4, ESLint,
+  shadcn/ui conventions (`components.json`, `src/lib/utils.ts` with `cn()`,
+  components live in `src/components/ui/`).
 - **Run it**: `npm run dev` → http://localhost:3000
 - **Brand tokens**: `src/app/globals.css` — `--color-brand-dark` (#012a2d),
   `--color-brand-mint` (#9dffc4), `--color-brand-ink` (#072f32). Fonts: Anton
   (`font-display`), Geist (body/default), Tauri (`font-tauri`, nav logo only).
+  Also carries the standard shadcn/ui base tokens (`--primary`, `--secondary`,
+  `--destructive`, `--muted`, `--accent`, `--border`, `--ring`, etc.), mapped
+  onto the ReelioPort palette so shadcn components render correctly out of
+  the box instead of silently losing their styling.
 
 ## Workflow
 
@@ -29,7 +35,7 @@ re-fetch `get_basic_info` → `get_tree_summary` → `get_jsx` /
 
 | Section | Component | Status |
 |---|---|---|
-| Nav + Hero | `src/components/Hero.tsx` | ✅ Refined to exact spec (flush top, fixed nav, correct padding/type sizes); headline line-break and work-statement centering adjusted since |
+| Nav + Hero | `src/components/Hero.tsx` | ✅ Refined to exact spec (flush top, fixed nav, correct padding/type sizes); headline line-break and work-statement centering adjusted since; the reserved middle spacer now holds an interactive phone mockup carousel (`src/components/ui/phone-mockups-1.tsx`) — see note below |
 | Why Join the Waitlist | `src/components/WhyJoinWaitlist.tsx` | ✅ Detail pass done — each card has a hover-animated Motion icon (gift, rocket, alarm-clock-check) in a mint circle |
 | Built for Creatives | `src/components/BuiltForCreatives.tsx` | ✅ Detail pass done — draggable/auto-rotating 3D photo sphere (`src/components/ui/img-sphere.tsx`), sized responsively via `src/components/ui/responsive-img-sphere.tsx` (300px mobile / 440px tablet / 560px desktop container, up from a fixed 380px); populated with 16 verified Unsplash photos of creatives actually at work (editors, videographers, photographers, a colorist, a sound engineer, an animator) instead of generic/abstract stock photos; audience tag cloud scattered with per-pill deterministic rotate/translate (desktop only, hover settles flat) instead of a tidy grid; tags are `select-none` |
 | Testimonial banner ("Footer" in Paper) | `src/components/TestimonialQuote.tsx` | ✅ Refined to exact spec (2026-08-12) — rebuilt as a single dark card (street photo + headline + form) matching Paper's current `Footer` frame exactly; no longer has a second scroll-pinned quote block |
@@ -63,9 +69,27 @@ smaller `heightVh` or a trailing spacer.
 - **No backend wiring yet.** Two email-capture forms on the page (hero and
   the Footer testimonial card) have no submit handler or API route. Needs a
   real integration (email service / DB) when ready — not a mock.
-- **Phone mockup placeholder**: Hero reserves an empty spacer
-  (`aria-hidden` div, `lg:w-[300px]`) in its middle column for a phone
-  mockup image the user will provide later.
+- **Phone mockup carousel** (2026-08-12): `src/components/ui/phone-mockups-1.tsx`
+  (entry point) + `phone-mockups-1-utils/phone-carousel.tsx` (the actual
+  `PhoneCarousel` — this file's implementation isn't from an external
+  source, it was written from scratch to match the given API surface: a
+  fanned stack of phone frames, click-through via `shadcn/ui` `Button` +
+  dot indicators, autoplay that pauses on hover, spring transitions via
+  `motion/react`). Sits in `Hero.tsx`'s middle column with `lg:-my-16` so it
+  overlaps the dark hero card prominently instead of just sitting flush
+  inside it. Currently shows 4 Unsplash placeholder "reel" images (portrait,
+  live performance, aerial, action sports) standing in for real ReelioPort
+  app screenshots — swap `exampleImages` in `phone-mockups-1.tsx` for actual
+  product screenshots when available. Remote Unsplash images required
+  whitelisting `images.unsplash.com` / `plus.unsplash.com` in
+  `next.config.ts`'s `images.remotePatterns`.
+- **shadcn/ui set up this session**: no `components.json` existed before
+  (project had `src/components/ui/` already by convention but no formal
+  shadcn scaffolding). Added `components.json`, `src/lib/utils.ts` (`cn()`
+  via `clsx` + `tailwind-merge`), and the shadcn base color tokens in
+  `globals.css`. Installed `@radix-ui/react-slot`, `class-variance-authority`,
+  `clsx`, `tailwind-merge`. `src/components/ui/button.tsx` is the first
+  actual shadcn component in the repo.
 
 ## Git
 
