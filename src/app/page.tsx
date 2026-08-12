@@ -2,7 +2,6 @@ import { Hero } from "@/components/Hero";
 import { WhyJoinWaitlist } from "@/components/WhyJoinWaitlist";
 import { BuiltForCreatives } from "@/components/BuiltForCreatives";
 import { TestimonialQuote } from "@/components/TestimonialQuote";
-import { FinalCta } from "@/components/FinalCta";
 
 export default function Home() {
   return (
@@ -11,7 +10,6 @@ export default function Home() {
       <WhyJoinWaitlist />
       <BuiltForCreatives />
       <TestimonialQuote />
-      <FinalCta />
     </main>
   );
 }
