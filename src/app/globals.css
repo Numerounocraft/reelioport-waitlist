@@ -7,6 +7,7 @@
   /* ReelioPort brand */
   --color-brand-dark: #012a2d;
   --color-brand-mint: #9dffc4;
+  --color-brand-mint-deep: #128a53;
   --color-brand-ink: #072f32;
 
   /* shadcn/ui base tokens, mapped onto the ReelioPort palette */
@@ -35,6 +36,7 @@
   --color-foreground: var(--foreground);
   --color-brand-dark: var(--color-brand-dark);
   --color-brand-mint: var(--color-brand-mint);
+  --color-brand-mint-deep: var(--color-brand-mint-deep);
   --color-brand-ink: var(--color-brand-ink);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
@@ -60,6 +62,201 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-anton);
   --font-tauri: var(--font-tauri);
+  --animate-marquee: marquee 22s linear infinite;
+  --animate-rocket-launch: rocket-launch 6s linear infinite;
+  --animate-flame-flicker: flame-flicker 0.6s ease-in-out infinite;
+  --animate-engine-glow: engine-glow-cycle 6s linear infinite;
+  --animate-smoke-puff: smoke-puff 6s linear infinite;
+  --animate-cloud-drift: cloud-drift 5s ease-in-out infinite;
+  --animate-star-twinkle: star-twinkle 2s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/*
+ * Full launch cycle for the rocket group (rocket + flame move together):
+ * 0-42%   rapid pad jitter, building up to liftoff
+ * 42-49%  brief crouch/coil (anticipation squash)
+ * 49-79%  accelerating liftoff, climbing off the top of the frame, fading out
+ * 79-99%  fully offscreen and invisible (smoke is what's left behind)
+ * 99-100% snaps back to the launch pad in the last ~60ms of the loop, so the
+ *         reset is imperceptible instead of visibly sliding back down
+ */
+@keyframes rocket-launch {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  3% {
+    transform: translate(-1px, 0) rotate(-1deg);
+  }
+  6% {
+    transform: translate(1px, 0) rotate(1deg);
+  }
+  9% {
+    transform: translate(-1.5px, 0) rotate(-1.2deg);
+  }
+  12% {
+    transform: translate(1.5px, 0) rotate(1.2deg);
+  }
+  15% {
+    transform: translate(-1px, -1px) rotate(-0.8deg);
+  }
+  18% {
+    transform: translate(1px, -1px) rotate(0.8deg);
+  }
+  21% {
+    transform: translate(-1.5px, 0) rotate(-1deg);
+  }
+  24% {
+    transform: translate(1.5px, 0) rotate(1deg);
+  }
+  27% {
+    transform: translate(-1px, 0) rotate(-0.6deg);
+  }
+  30% {
+    transform: translate(1px, 0) rotate(0.6deg);
+  }
+  33% {
+    transform: translate(-2px, -1px) rotate(-1.4deg);
+  }
+  36% {
+    transform: translate(2px, -1px) rotate(1.4deg);
+  }
+  39% {
+    transform: translate(-1px, 0) rotate(-0.8deg);
+  }
+  42% {
+    transform: translate(1px, 0) rotate(0.8deg);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(0, 3px) rotate(0deg);
+  }
+  49% {
+    transform: translate(0, -2px) scale(1.02);
+    opacity: 1;
+  }
+  56% {
+    transform: translate(0, -60px) scale(1);
+    opacity: 1;
+  }
+  63% {
+    transform: translate(0, -140px);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(0, -240px);
+    opacity: 1;
+  }
+  76% {
+    transform: translate(0, -340px);
+    opacity: 0.4;
+  }
+  79%,
+  99% {
+    transform: translate(0, -380px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes flame-flicker {
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scaleY(1.18);
+    opacity: 1;
+  }
+}
+
+/** Ambient glow under the rocket: dim during jitter, flares at ignition, fades out through liftoff. */
+@keyframes engine-glow-cycle {
+  0%,
+  40% {
+    transform: scale(0.9);
+    opacity: 0.35;
+  }
+  46% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  76%,
+  99% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.35;
+  }
+}
+
+/** One exhaust puff left behind at the pad as the rocket climbs away. Drifts on --puff-x per instance. */
+@keyframes smoke-puff {
+  0%,
+  48% {
+    transform: translate(0, 0) scale(0.3);
+    opacity: 0;
+  }
+  54% {
+    transform: translate(var(--puff-x, 0px), -6px) scale(0.6);
+    opacity: 0.55;
+  }
+  65% {
+    transform: translate(calc(var(--puff-x, 0px) * 1.6), -22px) scale(1.15);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translate(calc(var(--puff-x, 0px) * 2.2), -42px) scale(1.8);
+    opacity: 0.22;
+  }
+  92%,
+  100% {
+    transform: translate(calc(var(--puff-x, 0px) * 2.6), -55px) scale(2.1);
+    opacity: 0;
+  }
+}
+
+@keyframes cloud-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: var(--star-opacity, 0.8);
+  }
 }
 
 body {

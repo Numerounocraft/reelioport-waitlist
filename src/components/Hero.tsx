@@ -1,6 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import PhoneMockupBasic from "@/components/ui/phone-mockups-1";
+import { WaitlistSuccessModal } from "@/components/WaitlistSuccessModal";
 
 export function Hero() {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setShowSuccess(true);
+    event.currentTarget.reset();
+  };
+
   return (
     <>
       <nav className="fixed inset-x-0 top-4 z-50 px-5 sm:px-10 lg:px-16">
@@ -33,7 +45,7 @@ export function Hero() {
                 </p>
               </div>
 
-              <div className="hidden shrink-0 lg:-my-16 lg:block">
+              <div className="flex w-full shrink-0 justify-center lg:w-auto lg:-my-16">
                 <PhoneMockupBasic />
               </div>
 
@@ -56,7 +68,10 @@ export function Hero() {
               </p>
             </div>
 
-            <form className="flex w-full max-w-sm flex-col items-center gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="flex w-full max-w-sm flex-col items-center gap-6"
+            >
               <div className="flex w-full flex-col gap-4">
                 <input
                   type="text"
@@ -85,6 +100,11 @@ export function Hero() {
           </div>
         </div>
       </section>
+
+      <WaitlistSuccessModal
+        open={showSuccess}
+        onClose={() => setShowSuccess(false)}
+      />
     </>
   );
 }
