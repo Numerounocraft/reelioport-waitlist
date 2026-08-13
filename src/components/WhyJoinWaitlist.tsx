@@ -25,27 +25,25 @@ const features = [
 
 export function WhyJoinWaitlist() {
   return (
-    <section className="bg-white px-5 py-16 sm:px-10 sm:py-20">
-      <div className="mx-auto flex max-w-[1313px] flex-col gap-12 rounded-4xl bg-brand-dark p-8 sm:gap-16 sm:p-16">
-        <h2 className="font-display text-[32px] leading-10 text-white">
-          WHY JOIN THE WAITLIST?
-        </h2>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10">
-          {features.map((feature) => (
-            <div key={feature.title} className="flex flex-col gap-4">
-              <feature.icon className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-mint" />
-              <div className="flex flex-col gap-2">
-                <h3 className="text-base font-semibold text-brand-mint">
-                  {feature.title}
-                </h3>
-                <p className="max-w-[267px] text-[13px] leading-4 tracking-[-0.01em] text-brand-mint">
-                  {feature.description}
-                </p>
-              </div>
+    <div className="flex flex-col gap-12 rounded-4xl bg-brand-dark p-8 sm:gap-16 sm:p-16">
+      <h2 className="font-display text-[32px] leading-10 text-white">
+        WHY JOIN THE WAITLIST?
+      </h2>
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10">
+        {features.map((feature) => (
+          <div key={feature.title} className="flex flex-col gap-4">
+            <feature.icon className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-mint" />
+            <div className="flex flex-col gap-2">
+              <h3 className="text-base font-semibold text-brand-mint">
+                {feature.title}
+              </h3>
+              <p className="max-w-[267px] text-[13px] leading-4 tracking-[-0.01em] text-brand-mint">
+                {feature.description}
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { StickyTextReveal } from "@/components/StickyTextReveal";
 
 const audiences = [
   { label: "VIDEOGRAPHERS", rotate: -3, x: -4, y: 5 },
@@ -60,8 +59,6 @@ export function BuiltForCreatives() {
             </span>
           ))}
         </div>
-
-        <StickyTextReveal />
       </div>
     </section>
   );

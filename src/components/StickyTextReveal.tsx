@@ -118,8 +118,8 @@ export function StickyTextReveal() {
 
   return (
     <div ref={trackRef} className="relative h-[350vh] w-full">
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-2 px-6 text-center">
-        <p className="max-w-3xl text-balance font-display text-[28px] leading-9 text-brand-ink sm:text-[40px] sm:leading-[50px]">
+      <div className="sticky top-0 flex h-[80vh] flex-col items-center justify-center gap-2 px-6 text-center">
+        <h2 className="max-w-3xl text-balance font-display text-[28px] leading-9 text-brand-ink sm:text-[40px] sm:leading-[50px]">
           {words.map((word, i) => {
             const revealed = clamp(headlineProgress * words.length - i, 0, 1);
             return (
@@ -129,7 +129,7 @@ export function StickyTextReveal() {
               </React.Fragment>
             );
           })}
-        </p>
+        </h2>
 
         <div className="relative w-full max-w-2xl min-h-[6.5rem] sm:min-h-[3.5rem]">
           {SUBTEXT_LINES.map((line, i) => {

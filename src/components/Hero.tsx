@@ -16,7 +16,7 @@ export function Hero() {
   return (
     <>
       <nav className="fixed inset-x-0 top-4 z-50 px-5 sm:px-10 lg:px-16">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-[#325456] bg-[#1B4143] py-3 pl-6 pr-4">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-[#325456] bg-[#1B4143]/40 py-3 pl-6 pr-4 backdrop-blur-md">
           <span className="font-tauri text-base leading-5 text-white">
             ReelioPort
           </span>

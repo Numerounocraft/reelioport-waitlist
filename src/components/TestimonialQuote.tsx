@@ -14,8 +14,8 @@ export function TestimonialQuote() {
   };
 
   return (
-    <section className="bg-white px-5 py-16 sm:px-10 lg:px-16 lg:py-15">
-      <div className="mx-auto flex max-w-[1313px] flex-col overflow-hidden rounded-4xl bg-brand-dark lg:h-[499px] lg:flex-row">
+    <>
+      <div className="flex flex-col overflow-hidden rounded-4xl bg-brand-dark lg:h-[499px] lg:flex-row">
         <div className="relative h-64 w-full shrink-0 rounded-3xl sm:h-80 lg:h-auto lg:w-[553px]">
           <Image
             src="/images/videographer-street.png"
@@ -64,6 +64,6 @@ export function TestimonialQuote() {
         open={showSuccess}
         onClose={() => setShowSuccess(false)}
       />
-    </section>
+    </>
   );
 }
