@@ -1,4 +1,7 @@
+"use client";
+
 import type { CSSProperties } from "react";
+import { useRevealOnScroll } from "@/lib/use-reveal-on-scroll";
 
 const audiences = [
   { label: "VIDEOGRAPHERS", rotate: -3, x: -4, y: 5 },
@@ -14,11 +17,23 @@ const audiences = [
   { label: "CREATIVE AGENCY", rotate: -3, x: -3, y: 5 },
 ];
 
+// Mobile marquee splits the tags across two rows scrolling in opposite
+// directions, rather than one long row.
+const marqueeMidpoint = Math.ceil(audiences.length / 2);
+const marqueeRowA = audiences.slice(0, marqueeMidpoint);
+const marqueeRowB = audiences.slice(marqueeMidpoint);
+
 export function BuiltForCreatives() {
+  const headingReveal = useRevealOnScroll<HTMLDivElement>();
+
   return (
     <section className="bg-white px-5 py-16 sm:px-10 sm:py-20">
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-16 sm:gap-20">
-        <div className="flex flex-col items-center gap-3.5 text-center">
+        <div
+          ref={headingReveal.ref}
+          style={headingReveal.style}
+          className={`flex flex-col items-center gap-3.5 text-center ${headingReveal.className}`}
+        >
           <h2 className="font-display text-4xl text-brand-ink sm:text-5xl">
             BUILT FOR CREATIVES
           </h2>
@@ -29,11 +44,21 @@ export function BuiltForCreatives() {
           </p>
         </div>
 
-        <div className="w-full -mx-5 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] sm:hidden">
+        <div className="flex w-full -mx-5 flex-col gap-3 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] sm:hidden">
           <div className="flex w-max animate-marquee gap-3">
-            {[...audiences, ...audiences].map((audience, index) => (
+            {[...marqueeRowA, ...marqueeRowA].map((audience, index) => (
               <span
-                key={`${audience.label}-marquee-${index}`}
+                key={`${audience.label}-marquee-a-${index}`}
+                className="select-none whitespace-nowrap rounded-full bg-brand-accent px-6 py-2 text-xl font-bold text-brand-dark"
+              >
+                {audience.label}
+              </span>
+            ))}
+          </div>
+          <div className="flex w-max animate-marquee gap-3 [animation-direction:reverse]">
+            {[...marqueeRowB, ...marqueeRowB].map((audience, index) => (
+              <span
+                key={`${audience.label}-marquee-b-${index}`}
                 className="select-none whitespace-nowrap rounded-full bg-brand-accent px-6 py-2 text-xl font-bold text-brand-dark"
               >
                 {audience.label}

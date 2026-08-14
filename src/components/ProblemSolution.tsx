@@ -1,11 +1,14 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import { useRevealOnScroll } from "@/lib/use-reveal-on-scroll";
 
 export function ProblemSolution() {
   const problemRef = useRef<HTMLDivElement>(null);
   const solutionRef = useRef<HTMLDivElement>(null);
   const [matchedHeight, setMatchedHeight] = useState<number>();
+  const headingReveal = useRevealOnScroll<HTMLDivElement>();
+  const closingReveal = useRevealOnScroll<HTMLDivElement>();
 
   // The Problem/Solution cards are fit-content sized (their text decides the
   // size, not a forced viewport height), but for the sticky swap below they
@@ -39,7 +42,11 @@ export function ProblemSolution() {
 
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-[1313px] px-5 pt-16 text-center sm:px-10 sm:pt-20 lg:px-16">
+      <div
+        ref={headingReveal.ref}
+        style={headingReveal.style}
+        className={`mx-auto max-w-[1313px] px-5 pt-16 text-center sm:px-10 sm:pt-20 lg:px-16 ${headingReveal.className}`}
+      >
         <h2 className="font-display text-[28px] leading-tight text-brand-ink sm:text-[32px] sm:leading-10">
           YOUR VIDEO WORK. ONE PLACE.
         </h2>
@@ -94,7 +101,11 @@ export function ProblemSolution() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-[1313px] flex-col items-center gap-14 px-5 py-16 text-center sm:gap-16 sm:px-10 sm:py-20 lg:px-16">
+      <div
+        ref={closingReveal.ref}
+        style={closingReveal.style}
+        className={`mx-auto flex max-w-[1313px] flex-col items-center gap-14 px-5 py-16 text-center sm:gap-16 sm:px-10 sm:py-20 lg:px-16 ${closingReveal.className}`}
+      >
         <div className="flex flex-col items-center gap-2">
           <span className="rounded-md bg-brand-dark px-3 py-1.5 text-xs font-bold tracking-wide text-white uppercase">
             Just click play.

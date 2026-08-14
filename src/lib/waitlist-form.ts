@@ -6,6 +6,18 @@ const GOOGLE_FORM_ENTRIES = {
   email: "entry.927112235",
 } as const;
 
+// Stricter than the browser's native `type="email"` validation, which (per
+// the HTML spec) accepts domains with no TLD at all, e.g. "person@localhost"
+// or "person@test" — both pass native validation but aren't real addresses.
+// This requires at least one dot-separated label after the domain, i.e. a
+// real-looking TLD.
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+export function isValidEmail(email: string): boolean {
+  return EMAIL_PATTERN.test(email.trim());
+}
+
 /**
  * Submits to the "Reelioport Waitlist" Google Form's response endpoint.
  *

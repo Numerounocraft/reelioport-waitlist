@@ -3,16 +3,26 @@
 import { useState } from "react";
 import Image from "next/image";
 import { WaitlistSuccessModal } from "@/components/WaitlistSuccessModal";
-import { submitToWaitlistForm } from "@/lib/waitlist-form";
+import { isValidEmail, submitToWaitlistForm } from "@/lib/waitlist-form";
+import { useRevealOnScroll } from "@/lib/use-reveal-on-scroll";
 
 export function TestimonialQuote() {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const cardReveal = useRevealOnScroll<HTMLDivElement>();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
+
+    if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    setEmailError(null);
     submitToWaitlistForm({ name, email });
     setShowSuccess(true);
     event.currentTarget.reset();
@@ -20,13 +30,17 @@ export function TestimonialQuote() {
 
   return (
     <>
-      <div className="flex flex-col overflow-hidden rounded-4xl bg-brand-dark lg:h-[499px] lg:flex-row">
-        <div className="relative h-64 w-full shrink-0 rounded-3xl sm:h-80 lg:h-auto lg:w-[553px]">
+      <div
+        ref={cardReveal.ref}
+        style={cardReveal.style}
+        className={`flex flex-col overflow-hidden rounded-4xl bg-brand-dark lg:h-[499px] lg:flex-row ${cardReveal.className}`}
+      >
+        <div className="relative h-64 w-full shrink-0 rounded-3xl sm:h-80 lg:h-auto lg:w-[650px]">
           <Image
             src="/images/videographer-street.png"
             alt="Videographer filming on a lively city street at night"
             fill
-            sizes="(min-width: 1024px) 553px, 100vw"
+            sizes="(min-width: 1024px) 650px, 100vw"
             className="rounded-3xl object-cover"
           />
         </div>
@@ -39,11 +53,7 @@ export function TestimonialQuote() {
               Don&apos;t wait until you need a portfolio to build one.
             </p>
           </div>
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <p className="max-w-[241px] text-xs text-[#CDCDCD]">
-              Join 6,000+ creatives on the ReelioPort waitlist and get your
-              exclusive Pro discount.
-            </p>
+          <div className="flex flex-col gap-6">
             <form
               onSubmit={handleSubmit}
               className="flex flex-col items-stretch gap-3.5"
@@ -61,9 +71,16 @@ export function TestimonialQuote() {
                   name="email"
                   placeholder="Enter your email address"
                   required
-                  className="flex-1 rounded-full border border-[#4B3D80] bg-[#2A1B66] py-3 pl-6 pr-4 text-[13px] font-medium text-[#CBCBCB] placeholder:text-[#CBCBCB] focus:outline-2 focus:outline-brand-accent"
+                  aria-invalid={emailError ? true : undefined}
+                  onChange={() => emailError && setEmailError(null)}
+                  className={`flex-1 rounded-full border bg-[#2A1B66] py-3 pl-6 pr-4 text-[13px] font-medium text-[#CBCBCB] placeholder:text-[#CBCBCB] focus:outline-2 ${emailError ? "border-red-500 outline-2 outline-red-500" : "border-[#4B3D80] focus:outline-brand-accent"}`}
                 />
               </div>
+              {emailError && (
+                <p className="px-1 text-xs font-medium text-red-400">
+                  {emailError}
+                </p>
+              )}
               <button
                 type="submit"
                 className="whitespace-nowrap rounded-full bg-brand-accent px-4 py-3 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-[#B49CFF]"
@@ -71,6 +88,10 @@ export function TestimonialQuote() {
                 Join Waitlist
               </button>
             </form>
+            <p className="text-xs text-[#CDCDCD]">
+              Join 6,000+ creatives on the ReelioPort waitlist and get your
+              exclusive Pro discount.
+            </p>
           </div>
         </div>
       </div>

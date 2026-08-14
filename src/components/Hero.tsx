@@ -4,16 +4,31 @@ import { useState } from "react";
 import Image from "next/image";
 import PhoneMockupBasic from "@/components/ui/phone-mockups-1";
 import { WaitlistSuccessModal } from "@/components/WaitlistSuccessModal";
-import { submitToWaitlistForm } from "@/lib/waitlist-form";
+import { isValidEmail, submitToWaitlistForm } from "@/lib/waitlist-form";
+import { useRevealOnScroll } from "@/lib/use-reveal-on-scroll";
 
 export function Hero() {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const introReveal = useRevealOnScroll<HTMLDivElement>();
+  const phoneReveal = useRevealOnScroll<HTMLDivElement>({ delayMs: 150 });
+  const taglineReveal = useRevealOnScroll<HTMLParagraphElement>({
+    delayMs: 300,
+  });
+  const waitlistReveal = useRevealOnScroll<HTMLDivElement>();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
+
+    if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    setEmailError(null);
     submitToWaitlistForm({ name, email });
     setShowSuccess(true);
     event.currentTarget.reset();
@@ -42,9 +57,13 @@ export function Hero() {
 
       <section className="bg-white">
         <div className="mx-auto max-w-[1440px] px-5 sm:px-10 lg:px-16">
-          <div className="relative overflow-hidden rounded-t-none rounded-b-[32px] bg-brand-dark px-5 pt-24 pb-14 sm:px-10 sm:pt-28 sm:pb-20 lg:pt-[168px]">
+          <div className="relative overflow-hidden rounded-t-none rounded-b-[32px] bg-brand-dark px-5 pt-32 pb-14 sm:px-10 sm:pt-36 sm:pb-20 lg:pt-[200px]">
             <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex max-w-md flex-col gap-4">
+              <div
+                ref={introReveal.ref}
+                style={introReveal.style}
+                className={`flex max-w-md flex-col gap-4 ${introReveal.className}`}
+              >
                 <h1 className="font-display text-3xl leading-9 text-brand-accent sm:text-4xl sm:leading-10">
                   One link. Every project.
                   <br />
@@ -56,11 +75,19 @@ export function Hero() {
                 </p>
               </div>
 
-              <div className="flex w-full shrink-0 justify-center lg:w-auto lg:-my-16">
+              <div
+                ref={phoneReveal.ref}
+                style={phoneReveal.style}
+                className={`flex w-full shrink-0 justify-center lg:w-auto lg:-my-16 ${phoneReveal.className}`}
+              >
                 <PhoneMockupBasic />
               </div>
 
-              <p className="max-w-xs text-center font-display text-[32px] leading-10 text-brand-accent sm:text-[40px] sm:leading-[48px] lg:text-[46px] lg:leading-[56px]">
+              <p
+                ref={taglineReveal.ref}
+                style={taglineReveal.style}
+                className={`max-w-xs text-center font-display text-[32px] leading-10 text-brand-accent sm:text-[40px] sm:leading-[48px] lg:text-[46px] lg:leading-[56px] ${taglineReveal.className}`}
+              >
                 YOUR WORK DESERVES A BETTER HOME.
               </p>
             </div>
@@ -70,7 +97,11 @@ export function Hero() {
             id="waitlist"
             className="flex flex-col items-center gap-10 pt-16 pb-6 sm:pt-24 sm:pb-7 lg:pt-[120px] lg:pb-[30px]"
           >
-            <div className="flex flex-col items-center gap-3.5 text-center">
+            <div
+              ref={waitlistReveal.ref}
+              style={waitlistReveal.style}
+              className={`flex flex-col items-center gap-3.5 text-center ${waitlistReveal.className}`}
+            >
               <h2 className="font-display text-4xl text-brand-ink sm:text-5xl">
                 JOIN THE WAITLIST
               </h2>
@@ -90,13 +121,22 @@ export function Hero() {
                   placeholder="Full Name"
                   className="w-full rounded-lg bg-[#F5F5F5] px-4 py-3 text-[13px] text-[#626262] placeholder:text-[#626262] focus:outline-2 focus:outline-brand-dark"
                 />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  required
-                  className="w-full rounded-lg bg-[#F5F5F5] px-4 py-3 text-[13px] text-[#626262] placeholder:text-[#626262] focus:outline-2 focus:outline-brand-dark"
-                />
+                <div className="flex flex-col gap-1.5">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    required
+                    aria-invalid={emailError ? true : undefined}
+                    onChange={() => emailError && setEmailError(null)}
+                    className={`w-full rounded-lg bg-[#F5F5F5] px-4 py-3 text-[13px] text-[#626262] placeholder:text-[#626262] focus:outline-2 ${emailError ? "outline-2 outline-red-500" : "focus:outline-brand-dark"}`}
+                  />
+                  {emailError && (
+                    <p className="px-1 text-xs font-medium text-red-600">
+                      {emailError}
+                    </p>
+                  )}
+                </div>
                 <button
                   type="submit"
                   className="w-full rounded-full bg-brand-accent px-4 py-3 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-[#B49CFF]"
