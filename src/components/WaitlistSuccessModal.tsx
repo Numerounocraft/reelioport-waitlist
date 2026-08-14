@@ -65,7 +65,7 @@ export function WaitlistSuccessModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-[32px] bg-brand-mint/15 p-2 shadow-[0_20px_60px_-20px_rgba(1,42,45,0.45)]"
+        className="relative w-full max-w-md rounded-[32px] bg-brand-accent/15 p-2 shadow-[0_20px_60px_-20px_rgba(1,42,45,0.45)]"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="relative overflow-hidden rounded-[28px] bg-white">
@@ -89,7 +89,7 @@ export function WaitlistSuccessModal({
                 className="text-2xl leading-tight font-bold text-brand-ink sm:text-[28px]"
               >
                 You have been added to our{" "}
-                <span className="text-brand-mint-deep">waitlist!</span>
+                <span className="text-brand-accent-deep">waitlist!</span>
               </h2>
               <p className="text-sm text-[#626262] sm:text-base">
                 Thank you for joining, you&apos;ll be the first to know when
@@ -117,7 +117,7 @@ export function WaitlistSuccessModal({
               </div>
               <p className="text-xs text-[#626262] sm:text-sm">
                 You&apos;re not alone,{" "}
-                <span className="font-semibold text-brand-mint-deep">
+                <span className="font-semibold text-brand-accent-deep">
                   {memberCount}
                 </span>{" "}
                 people joined!

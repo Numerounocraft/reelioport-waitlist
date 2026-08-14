@@ -32,12 +32,12 @@ export function WhyJoinWaitlist() {
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10">
         {features.map((feature) => (
           <div key={feature.title} className="flex flex-col gap-4">
-            <feature.icon className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-mint" />
+            <feature.icon className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-accent" />
             <div className="flex flex-col gap-2">
-              <h3 className="text-base font-semibold text-brand-mint">
+              <h3 className="text-base font-semibold text-brand-accent">
                 {feature.title}
               </h3>
-              <p className="max-w-[267px] text-[13px] leading-4 tracking-[-0.01em] text-brand-mint">
+              <p className="max-w-[267px] text-[13px] leading-4 tracking-[-0.01em] text-brand-accent">
                 {feature.description}
               </p>
             </div>

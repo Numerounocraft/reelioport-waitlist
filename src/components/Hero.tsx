@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import PhoneMockupBasic from "@/components/ui/phone-mockups-1";
 import { WaitlistSuccessModal } from "@/components/WaitlistSuccessModal";
 
@@ -16,13 +17,18 @@ export function Hero() {
   return (
     <>
       <nav className="fixed inset-x-0 top-4 z-50 px-5 sm:px-10 lg:px-16">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-[#325456] bg-[#1B4143]/40 py-3 pl-6 pr-4 backdrop-blur-md">
-          <span className="font-tauri text-base leading-5 text-white">
-            ReelioPort
-          </span>
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-[#4B3D80] bg-brand-dark/40 py-3 pl-6 pr-4 backdrop-blur-md">
+          <Image
+            src="/images/reelioport-logo.png"
+            alt="ReelioPort"
+            width={1200}
+            height={290}
+            priority
+            className="h-6 w-auto brightness-0 invert sm:h-7"
+          />
           <a
             href="#waitlist"
-            className="rounded-full bg-brand-mint px-4 py-2.5 text-base leading-5 font-medium text-[#012B2E]"
+            className="rounded-full bg-brand-accent px-4 py-2.5 text-base leading-5 font-medium text-brand-ink"
           >
             Join The Waitlist
           </a>
@@ -34,12 +40,12 @@ export function Hero() {
           <div className="relative overflow-hidden rounded-t-none rounded-b-[32px] bg-brand-dark px-5 pt-24 pb-14 sm:px-10 sm:pt-28 sm:pb-20 lg:pt-[168px]">
             <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex max-w-md flex-col gap-4">
-                <h1 className="font-display text-3xl leading-9 text-brand-mint sm:text-4xl sm:leading-10">
+                <h1 className="font-display text-3xl leading-9 text-brand-accent sm:text-4xl sm:leading-10">
                   One link. Every project.
                   <br />
                   Every opportunity.
                 </h1>
-                <p className="max-w-sm text-lg leading-[22px] tracking-[0.03em] text-brand-mint">
+                <p className="max-w-sm text-lg leading-[22px] tracking-[0.03em] text-brand-accent">
                   ReelioPort is the professional video portfolio platform
                   built for creatives.
                 </p>
@@ -49,7 +55,7 @@ export function Hero() {
                 <PhoneMockupBasic />
               </div>
 
-              <p className="max-w-xs text-center font-display text-[32px] leading-10 text-brand-mint sm:text-[40px] sm:leading-[48px] lg:text-[46px] lg:leading-[56px]">
+              <p className="max-w-xs text-center font-display text-[32px] leading-10 text-brand-accent sm:text-[40px] sm:leading-[48px] lg:text-[46px] lg:leading-[56px]">
                 YOUR WORK DESERVES A BETTER HOME.
               </p>
             </div>
@@ -87,7 +93,7 @@ export function Hero() {
                 />
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-brand-mint px-4 py-3 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-[#8CF0B4]"
+                  className="w-full rounded-full bg-brand-accent px-4 py-3 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-[#B49CFF]"
                 >
                   Join Waitlist
                 </button>

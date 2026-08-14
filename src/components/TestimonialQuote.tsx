@@ -47,11 +47,11 @@ export function TestimonialQuote() {
                 type="email"
                 name="email"
                 placeholder="Enter your email address"
-                className="rounded-full border border-[#325456] bg-[#1B4143] py-3 pl-6 pr-4 text-[13px] font-medium text-[#CBCBCB] placeholder:text-[#CBCBCB] focus:outline-2 focus:outline-brand-mint"
+                className="rounded-full border border-[#4B3D80] bg-[#2A1B66] py-3 pl-6 pr-4 text-[13px] font-medium text-[#CBCBCB] placeholder:text-[#CBCBCB] focus:outline-2 focus:outline-brand-accent"
               />
               <button
                 type="submit"
-                className="whitespace-nowrap rounded-full bg-[#9EF7C1] px-4 py-3 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-[#8CF0B4]"
+                className="whitespace-nowrap rounded-full bg-brand-accent px-4 py-3 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-[#B49CFF]"
               >
                 Join Waitlist
               </button>

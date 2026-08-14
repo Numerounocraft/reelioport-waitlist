@@ -34,7 +34,7 @@ export function BuiltForCreatives() {
             {[...audiences, ...audiences].map((audience, index) => (
               <span
                 key={`${audience.label}-marquee-${index}`}
-                className="select-none whitespace-nowrap rounded-full bg-brand-mint px-6 py-2 text-xl font-bold text-brand-dark"
+                className="select-none whitespace-nowrap rounded-full bg-brand-accent px-6 py-2 text-xl font-bold text-brand-dark"
               >
                 {audience.label}
               </span>
@@ -46,7 +46,7 @@ export function BuiltForCreatives() {
           {audiences.map((audience, index) => (
             <span
               key={`${audience.label}-${index}`}
-              className="select-none rounded-full bg-brand-mint px-6 py-2 text-[25px] font-bold text-brand-dark transition-transform duration-300 ease-out rotate-[var(--r)] translate-x-[var(--x)] translate-y-[var(--y)] hover:rotate-0 hover:translate-x-0 hover:translate-y-0"
+              className="select-none rounded-full bg-brand-accent px-6 py-2 text-[25px] font-bold text-brand-dark transition-transform duration-300 ease-out rotate-[var(--r)] translate-x-[var(--x)] translate-y-[var(--y)] hover:rotate-0 hover:translate-x-0 hover:translate-y-0"
               style={
                 {
                   "--r": `${audience.rotate}deg`,
