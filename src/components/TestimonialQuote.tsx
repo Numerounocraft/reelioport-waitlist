@@ -3,12 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import { WaitlistSuccessModal } from "@/components/WaitlistSuccessModal";
+import { submitToWaitlistForm } from "@/lib/waitlist-form";
 
 export function TestimonialQuote() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    submitToWaitlistForm({ name, email });
     setShowSuccess(true);
     event.currentTarget.reset();
   };
@@ -41,14 +46,24 @@ export function TestimonialQuote() {
             </p>
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col items-stretch gap-3.5 sm:flex-row sm:items-center"
+              className="flex flex-col items-stretch gap-3.5"
             >
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email address"
-                className="rounded-full border border-[#4B3D80] bg-[#2A1B66] py-3 pl-6 pr-4 text-[13px] font-medium text-[#CBCBCB] placeholder:text-[#CBCBCB] focus:outline-2 focus:outline-brand-accent"
-              />
+              <div className="flex flex-col items-stretch gap-3.5 sm:flex-row">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  required
+                  className="flex-1 rounded-full border border-[#4B3D80] bg-[#2A1B66] py-3 pl-6 pr-4 text-[13px] font-medium text-[#CBCBCB] placeholder:text-[#CBCBCB] focus:outline-2 focus:outline-brand-accent"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email address"
+                  required
+                  className="flex-1 rounded-full border border-[#4B3D80] bg-[#2A1B66] py-3 pl-6 pr-4 text-[13px] font-medium text-[#CBCBCB] placeholder:text-[#CBCBCB] focus:outline-2 focus:outline-brand-accent"
+                />
+              </div>
               <button
                 type="submit"
                 className="whitespace-nowrap rounded-full bg-brand-accent px-4 py-3 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-[#B49CFF]"

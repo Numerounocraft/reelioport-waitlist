@@ -4,19 +4,24 @@ import { useState } from "react";
 import Image from "next/image";
 import PhoneMockupBasic from "@/components/ui/phone-mockups-1";
 import { WaitlistSuccessModal } from "@/components/WaitlistSuccessModal";
+import { submitToWaitlistForm } from "@/lib/waitlist-form";
 
 export function Hero() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    submitToWaitlistForm({ name, email });
     setShowSuccess(true);
     event.currentTarget.reset();
   };
 
   return (
     <>
-      <nav className="fixed inset-x-0 top-4 z-50 px-5 sm:px-10 lg:px-16">
+      <nav className="fixed inset-x-0 top-4 z-50 px-8 sm:px-10 lg:px-16">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-[#4B3D80] bg-brand-dark/40 py-3 pl-6 pr-4 backdrop-blur-md">
           <Image
             src="/images/reelioport-logo.png"
@@ -89,6 +94,7 @@ export function Hero() {
                   type="email"
                   name="email"
                   placeholder="Email Address"
+                  required
                   className="w-full rounded-lg bg-[#F5F5F5] px-4 py-3 text-[13px] text-[#626262] placeholder:text-[#626262] focus:outline-2 focus:outline-brand-dark"
                 />
                 <button
