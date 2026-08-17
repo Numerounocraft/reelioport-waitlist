@@ -12,7 +12,7 @@ export default function Home() {
       <ProblemSolution />
       <BuiltForCreatives />
       <section className="bg-white px-5 pb-16 sm:px-10 lg:px-16 sm:pb-20">
-        <div className="mb-[40px]">
+        <div className="mb-[24px]">
           <StickyTextReveal />
         </div>
         <div className="mx-auto flex max-w-[1313px] flex-col gap-4">
