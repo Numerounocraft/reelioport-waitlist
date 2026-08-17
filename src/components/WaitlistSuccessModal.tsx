@@ -8,23 +8,23 @@ import { WaitlistLaunchIllustration } from "@/components/icons/WaitlistLaunchIll
 const AVATARS = [
   {
     src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=faces&fit=crop&fm=jpg&q=80&w=96&h=96",
-    alt: "ReelioPort waitlist member",
+    alt: "Reelioport waitlist member",
   },
   {
     src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=faces&fit=crop&fm=jpg&q=80&w=96&h=96",
-    alt: "ReelioPort waitlist member",
+    alt: "Reelioport waitlist member",
   },
   {
     src: "https://images.unsplash.com/photo-1757744705465-ea08b0ddc38a?crop=faces&fit=crop&fm=jpg&q=80&w=96&h=96",
-    alt: "ReelioPort waitlist member",
+    alt: "Reelioport waitlist member",
   },
   {
     src: "https://images.unsplash.com/photo-1609371497456-3a55a205d5eb?crop=faces&fit=crop&fm=jpg&q=80&w=96&h=96",
-    alt: "ReelioPort waitlist member",
+    alt: "Reelioport waitlist member",
   },
   {
     src: "https://images.unsplash.com/photo-1592234789031-94bf65f630ed?crop=faces&fit=crop&fm=jpg&q=80&w=96&h=96",
-    alt: "ReelioPort waitlist member",
+    alt: "Reelioport waitlist member",
   },
 ];
 

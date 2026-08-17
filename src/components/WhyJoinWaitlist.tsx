@@ -10,13 +10,13 @@ const features = [
   {
     title: "EXCLUSIVE PRO DISCOUNT",
     description:
-      "Waitlist members get an exclusive discount when ReelioPort Pro launches.",
+      "Waitlist members get an exclusive discount when Reelioport Pro launches.",
     icon: AnimatedGift,
   },
   {
     title: "EARLY ACCESS",
     description:
-      "Be among the first creatives to experience ReelioPort before it opens to everyone.",
+      "Be among the first creatives to experience Reelioport before it opens to everyone.",
     icon: AnimatedRocket,
   },
   {

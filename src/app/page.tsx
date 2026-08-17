@@ -11,8 +11,10 @@ export default function Home() {
       <Hero />
       <ProblemSolution />
       <BuiltForCreatives />
-      <StickyTextReveal />
-      <section className="bg-white px-5 py-16 sm:px-10 lg:px-16 sm:py-20">
+      <section className="bg-white px-5 pb-16 sm:px-10 lg:px-16 sm:pb-20">
+        <div className="mb-[80px]">
+          <StickyTextReveal />
+        </div>
         <div className="mx-auto flex max-w-[1313px] flex-col gap-4">
           <WhyJoinWaitlist />
           <TestimonialQuote />

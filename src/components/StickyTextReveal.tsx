@@ -10,7 +10,7 @@ const SUBTEXT_LINES = [
   "It should make them watch.",
   "It should make them remember your work.",
   "And when the right opportunity comes along, you should already have one professional link ready to share.",
-  "That's ReelioPort.",
+  "That's Reelioport.",
 ];
 
 /** Fraction of the scroll track spent revealing the headline before the subtext starts cycling. */
@@ -19,27 +19,68 @@ const HEADLINE_PHASE = 0.3;
 /** Fraction of each subtext sentence's slot spent scaling in/out at its edges; the rest is held at full opacity. */
 const TRANSITION = 0.2;
 
+/**
+ * How much scroll distance (px) the whole pin/reveal takes, on top of the
+ * pinned box's own height. This must match the *actual* CSS sticky release
+ * point (trackHeight - stickyBoxHeight), not the viewport height — the box
+ * is content-sized, not full-screen, so those two are very different. Track
+ * height is set to `boxHeight + pinScrollPx` below specifically so this
+ * value IS the real pin distance, keeping the JS-driven animation and the
+ * CSS sticky release in sync (otherwise the animation finishes and freezes
+ * while the box stays pinned for a long extra stretch, leaving a static
+ * sentence over a dead blank area until CSS actually releases it).
+ *
+ * Shorter on mobile: the box takes up proportionally more of a narrow,
+ * tall phone screen than a desktop one, so the same pin distance reads as
+ * much more "dead blank scroll" on mobile.
+ */
+const PIN_SCROLL_PX_MOBILE = 100;
+const PIN_SCROLL_PX_DESKTOP = 500;
+const MOBILE_BREAKPOINT = 640; // matches Tailwind's `sm`
+
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
+/** Returns the mobile or desktop pin-scroll budget, tracking viewport width. */
+function usePinScrollPx() {
+  const [px, setPx] = React.useState(PIN_SCROLL_PX_DESKTOP);
+
+  React.useEffect(() => {
+    const update = () => {
+      setPx(
+        window.innerWidth < MOBILE_BREAKPOINT
+          ? PIN_SCROLL_PX_MOBILE
+          : PIN_SCROLL_PX_DESKTOP
+      );
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return px;
+}
+
 /**
- * Tracks scroll progress through `ref`'s element as a 0-1 value, where 0 is
- * the element's top entering the viewport and 1 is its bottom leaving.
+ * Tracks scroll progress through `trackRef`'s element as a 0-1 value over
+ * `pinScrollPx` of scroll, once the track's top reaches the viewport top.
  * Uses a plain scroll/resize listener (rAF-throttled) rather than Motion's
  * useScroll, which never fired change events in this project.
  */
-function useScrollProgress(ref: React.RefObject<HTMLElement | null>) {
+function useScrollProgress(
+  trackRef: React.RefObject<HTMLElement | null>,
+  pinScrollPx: number
+) {
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
     let ticking = false;
 
     const measure = () => {
-      const el = ref.current;
+      const el = trackRef.current;
       if (el) {
-        const rect = el.getBoundingClientRect();
-        const total = rect.height - window.innerHeight;
-        setProgress(total > 0 ? clamp(-rect.top / total, 0, 1) : 0);
+        const top = el.getBoundingClientRect().top;
+        setProgress(clamp(-top / pinScrollPx, 0, 1));
       }
       ticking = false;
     };
@@ -58,9 +99,25 @@ function useScrollProgress(ref: React.RefObject<HTMLElement | null>) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [ref]);
+  }, [trackRef, pinScrollPx]);
 
   return progress;
+}
+
+/** Measures `ref`'s element's own height (content + padding), tracking resizes. */
+function useElementHeight(ref: React.RefObject<HTMLElement | null>) {
+  const [height, setHeight] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    const measure = () => {
+      if (ref.current) setHeight(ref.current.offsetHeight);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [ref]);
+
+  return height;
 }
 
 function HeadlineWord({
@@ -103,7 +160,10 @@ function sentenceStyle(raw: number, index: number) {
 
 export function StickyTextReveal() {
   const trackRef = React.useRef<HTMLDivElement>(null);
-  const progress = useScrollProgress(trackRef);
+  const stickyRef = React.useRef<HTMLDivElement>(null);
+  const pinScrollPx = usePinScrollPx();
+  const progress = useScrollProgress(trackRef, pinScrollPx);
+  const stickyHeight = useElementHeight(stickyRef);
 
   const words = React.useMemo(() => HEADLINE.split(" "), []);
 
@@ -117,8 +177,15 @@ export function StickyTextReveal() {
     subtextRawMax;
 
   return (
-    <div ref={trackRef} className="relative h-[350vh] w-full">
-      <div className="sticky top-0 flex h-[80vh] flex-col items-center justify-center gap-2 px-6 text-center">
+    <div
+      ref={trackRef}
+      className="relative w-full"
+      style={{ height: stickyHeight ? stickyHeight + pinScrollPx : "100vh" }}
+    >
+      <div
+        ref={stickyRef}
+        className="sticky top-0 flex flex-col items-center justify-center gap-2 px-6 py-24 text-center sm:py-32"
+      >
         <h2 className="max-w-3xl text-balance font-display text-[28px] leading-9 text-brand-ink sm:text-[40px] sm:leading-[50px]">
           {words.map((word, i) => {
             const revealed = clamp(headlineProgress * words.length - i, 0, 1);

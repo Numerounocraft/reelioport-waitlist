@@ -40,7 +40,7 @@ export function Hero() {
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-full border border-[#4B3D80] bg-brand-dark/40 py-3 pl-6 pr-4 backdrop-blur-md">
           <Image
             src="/images/reelioport-logo.png"
-            alt="ReelioPort"
+            alt="Reelioport"
             width={1200}
             height={290}
             priority
@@ -70,7 +70,7 @@ export function Hero() {
                   Every opportunity.
                 </h1>
                 <p className="max-w-sm text-lg leading-[22px] tracking-[0.03em] text-brand-accent">
-                  ReelioPort is the professional video portfolio platform
+                  Reelioport is the professional video portfolio platform
                   built for creatives.
                 </p>
               </div>
@@ -146,7 +146,7 @@ export function Hero() {
               </div>
               <p className="max-w-[252px] text-center text-[13px] text-brand-dark">
                 Be among the 6,000+ creatives waiting to experience
-                ReelioPort.
+                Reelioport.
               </p>
             </form>
           </div>

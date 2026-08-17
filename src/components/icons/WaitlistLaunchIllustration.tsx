@@ -23,7 +23,7 @@ const SMOKE_PUFFS = [
 ];
 
 /**
- * Rocket on a launch pad, in the ReelioPort brand palette: it jitters in
+ * Rocket on a launch pad, in the Reelioport brand palette: it jitters in
  * place as if building up thrust, then lifts off and climbs out of frame,
  * leaving exhaust smoke behind — then resets and repeats.
  */

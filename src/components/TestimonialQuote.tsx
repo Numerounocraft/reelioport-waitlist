@@ -89,7 +89,7 @@ export function TestimonialQuote() {
               </button>
             </form>
             <p className="text-xs text-[#CDCDCD]">
-              Join 6,000+ creatives on the ReelioPort waitlist and get your
+              Join 6,000+ creatives on the Reelioport waitlist and get your
               exclusive Pro discount.
             </p>
           </div>

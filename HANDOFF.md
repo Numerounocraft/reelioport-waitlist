@@ -1,10 +1,10 @@
-# ReelioPort Waitlist — Handoff
+# Reelioport Waitlist — Handoff
 
 Last updated: 2026-08-12 (waitlist-success modal's rocket now runs a full launch sequence — jitter, liftoff, smoke, reset, on loop; wired into both email forms — front-end only, no backend capture yet)
 
 ## What this is
 
-A waitlist landing page for **ReelioPort**, a video portfolio platform for
+A waitlist landing page for **Reelioport**, a video portfolio platform for
 creatives. Design lives in Paper (file "Graceful orchard",
 fileId `01KZPBXW83X1MBH102GWE0GMNS`); this repo is the Next.js build of it.
 
@@ -17,7 +17,7 @@ fileId `01KZPBXW83X1MBH102GWE0GMNS`); this repo is the Next.js build of it.
   (`font-display`), Geist (body/default), Tauri (`font-tauri`, nav logo only).
   Also carries the standard shadcn/ui base tokens (`--primary`, `--secondary`,
   `--destructive`, `--muted`, `--accent`, `--border`, `--ring`, etc.), mapped
-  onto the ReelioPort palette so shadcn components render correctly out of
+  onto the Reelioport palette so shadcn components render correctly out of
   the box instead of silently losing their styling.
 
 ## Workflow
@@ -173,7 +173,7 @@ smaller `heightVh` or a trailing spacer.
 - **Modal re-skin** (2026-08-12, same day): top of the modal now shows
   `src/components/icons/WaitlistLaunchIllustration.tsx` — a hand-built SVG
   (rocket launching through clouds into a starry sky), based on a second
-  screenshot reference the user provided, but recolored into the ReelioPort
+  screenshot reference the user provided, but recolored into the Reelioport
   palette (`brand-dark` sky, `brand-mint` accents, white rocket/clouds)
   instead of the reference's generic blue. Replaced the earlier
   checkmark-badge + dot-pattern treatment; card outer frame also toned down
@@ -224,7 +224,7 @@ smaller `heightVh` or a trailing spacer.
   its own `PORTFOLIO_REEL_IMAGES` array. Sits in `Hero.tsx`'s middle column
   with `lg:-my-16` so it overlaps the dark hero card prominently instead of
   just sitting flush inside it. Both usages currently show Unsplash
-  placeholder "reel" images standing in for real ReelioPort app
+  placeholder "reel" images standing in for real Reelioport app
   screenshots — swap them for actual product screenshots when available.
   Remote Unsplash images required whitelisting `images.unsplash.com` /
   `plus.unsplash.com` in `next.config.ts`'s `images.remotePatterns`.
@@ -249,7 +249,7 @@ cd8e2f3 Add handoff doc for section-by-section refinement workflow
 31a9b17 Refine hero section to match Paper spec exactly
 ba4c5ba Build testimonial/quote banner and final CTA with scroll reveal
 87500ae Build hero, why-join, and built-for-creatives sections
-382ed4b Set up ReelioPort brand foundation
+382ed4b Set up Reelioport brand foundation
 b21790e Initial commit from Create Next App
 ```
 

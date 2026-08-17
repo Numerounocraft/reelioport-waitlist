@@ -24,10 +24,28 @@ const tauri = Tauri({
   subsets: ["latin"],
 });
 
+const title = "Reelioport — Join the Waitlist";
+const description =
+  "Reelioport is the professional video portfolio platform built for creatives. Join the waitlist for early access and an exclusive Pro discount.";
+
 export const metadata: Metadata = {
-  title: "ReelioPort — Join the Waitlist",
-  description:
-    "ReelioPort is the professional video portfolio platform built for creatives. Join the waitlist for early access and an exclusive Pro discount.",
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000"
+  ),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

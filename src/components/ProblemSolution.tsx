@@ -22,12 +22,30 @@ export function ProblemSolution() {
   // change (including breakpoint-driven padding/wrapping changes), so this
   // stays correct at every viewport width, not just the one it first ran at.
   useLayoutEffect(() => {
+    // Read each card's *natural* height, not its currently-constrained one:
+    // once matchedHeight is applied as a min-height, a card's own scrollHeight
+    // reports that floor even if its real content now needs less (e.g. once
+    // web fonts finish loading and text reflows shorter/narrower) — so
+    // without this, a too-tall measurement taken before fonts settle gets
+    // locked in forever, since the card's rendered size never shrinks back
+    // down to trigger a re-measure. Clearing min-height right before reading
+    // (and restoring it immediately after, synchronously, before paint)
+    // avoids measuring our own previous constraint.
     const measure = () => {
-      const h1 = problemRef.current?.scrollHeight ?? 0;
-      const h2 = solutionRef.current?.scrollHeight ?? 0;
+      const problemEl = problemRef.current;
+      const solutionEl = solutionRef.current;
+      const prevProblem = problemEl?.style.minHeight ?? "";
+      const prevSolution = solutionEl?.style.minHeight ?? "";
+      if (problemEl) problemEl.style.minHeight = "";
+      if (solutionEl) solutionEl.style.minHeight = "";
+      const h1 = problemEl?.scrollHeight ?? 0;
+      const h2 = solutionEl?.scrollHeight ?? 0;
+      if (problemEl) problemEl.style.minHeight = prevProblem;
+      if (solutionEl) solutionEl.style.minHeight = prevSolution;
       setMatchedHeight(Math.max(h1, h2));
     };
     measure();
+    document.fonts?.ready?.then(measure);
     const ro = new ResizeObserver(measure);
     if (problemRef.current) ro.observe(problemRef.current);
     if (solutionRef.current) ro.observe(solutionRef.current);
@@ -89,7 +107,7 @@ export function ProblemSolution() {
               THE SOLUTION
             </h3>
             <p className="max-w-xl text-lg leading-relaxed font-semibold text-white sm:text-xl">
-              ReelioPort brings your video projects together in one
+              Reelioport brings your video projects together in one
               personalised, professional video portfolio. One place to
               showcase your best work.
               <br />
@@ -120,11 +138,11 @@ export function ProblemSolution() {
             AND THERE&apos;S MORE...
           </h3>
           <p className="max-w-2xl text-sm leading-[22px] font-semibold text-brand-dark">
-            A better way to present your work is coming. ReelioPort is
+            A better way to present your work is coming. Reelioport is
             being built with exciting features designed to make showcasing
             your video work easier, more professional and more memorable.
             You&apos;ll have to join the waitlist to see what&apos;s
-            coming. We&apos;ve been building ReelioPort around the way
+            coming. We&apos;ve been building Reelioport around the way
             creatives actually work. And we&apos;re only getting started.
           </p>
         </div>
