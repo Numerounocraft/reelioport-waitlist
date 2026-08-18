@@ -37,7 +37,7 @@ export type WaitlistSuccessModalProps = {
 export function WaitlistSuccessModal({
   open,
   onClose,
-  memberCount = "1,500+",
+  memberCount = "6,000+",
 }: WaitlistSuccessModalProps) {
   React.useEffect(() => {
     if (!open) return;
