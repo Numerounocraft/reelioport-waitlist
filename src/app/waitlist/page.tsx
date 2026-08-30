@@ -5,7 +5,7 @@ import { StickyTextReveal } from "@/components/StickyTextReveal";
 import { ProblemSolution } from "@/components/ProblemSolution";
 import { TestimonialQuote } from "@/components/TestimonialQuote";
 
-export default function Home() {
+export default function Waitlist() {
   return (
     <main className="flex flex-1 flex-col">
       <Hero />

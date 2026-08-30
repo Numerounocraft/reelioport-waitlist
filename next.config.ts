@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
       { hostname: "plus.unsplash.com" },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/waitlist",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
